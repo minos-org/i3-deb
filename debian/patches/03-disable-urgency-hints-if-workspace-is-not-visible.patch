@@ -1,0 +1,14 @@
+## Description: turn off urgency hints on new workspaces
+## Origin/Author: Javier P.L.
+## Bug: https://faq.i3wm.org/question/3473/how-to-disable-urgent-hints-on-startup
+--- a/src/manage.c
++++ b/src/manage.c
+@@ -289,7 +289,7 @@ void manage_window(xcb_window_t window,
+ 
+                 /* set the urgency hint on the window if the workspace is not visible */
+                 if (!workspace_is_visible(assigned_ws))
+-                    urgency_hint = true;
++                    urgency_hint = false;
+             }
+         /* TODO: handle assignments with type == A_TO_OUTPUT */
+         } else if (startup_ws) {
