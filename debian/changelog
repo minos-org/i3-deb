@@ -1,4 +1,4 @@
-i3-wm (master) unstable; urgency=low
+i3-wm (4.8.34) unstable; urgency=low
 
   * debian/patches/03-disable-urgency-hints-if-workspace-is-not-
     visible.patch: turn off urgency hints on new workspaces
