@@ -1,12 +1,13 @@
 i3-wm (4.8.34) unstable; urgency=low
 
+  * switch to dpkg-source 3.0 (quilt) format
   * debian/patches/03-disable-urgency-hints-if-workspace-is-not-
     visible.patch: turn off urgency hints on new workspaces
   * debian/patches/04-i3bar-xbm-icons.patch: Supporting *.xbm icons in i3bar
   * debian/patches/05-tiny-titles.patch: Removes extra spaces around the font
     in window titles
 
- -- Javier López <j@minos.io>  Thu, 05 Jan 2015 23:11:48 +0100
+ -- Javier P.L. <chilicuil@ubuntu.com>  Thu, 05 Jan 2015 23:11:48 +0100
 
 i3-wm (4.7.2-1) unstable; urgency=low
 
