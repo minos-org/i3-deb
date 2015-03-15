@@ -26,7 +26,7 @@
  
  typedef struct rect_t rect;
  
-@@ -39,6 +40,8 @@ struct status_block {
+@@ -41,6 +42,8 @@ struct status_block {
      char *color;
      uint32_t min_width;
      blockalign_t align;
@@ -53,16 +53,16 @@
 +#endif /* __XBM_IMAGE_H__ */
 --- a/i3bar/src/child.c
 +++ b/i3bar/src/child.c
-@@ -73,6 +73,8 @@ static void clear_statusline(struct stat
-             FREE(first->color);
-             FREE(first->name);
-             FREE(first->instance);
-+            FREE(first->icon_color);
-+            xbm_free (first->icon);
-         }
- 
-         TAILQ_REMOVE(head, first, blocks);
-@@ -191,6 +193,15 @@ static int stdin_string(void *context, c
+@@ -141,6 +141,8 @@ static int stdin_start_array(void *conte
+         FREE(first->color);
+         FREE(first->name);
+         FREE(first->instance);
++        FREE(first->icon_color);
++        xbm_free (first->icon);
+         TAILQ_REMOVE(&statusline_head, first, blocks);
+         free(first);
+     }
+@@ -187,6 +189,15 @@ static int stdin_string(void *context, c
      if (strcasecmp(ctx->last_map_key, "color") == 0) {
          sasprintf(&(ctx->block.color), "%.*s", len, val);
      }
