@@ -1,3 +1,9 @@
+i3-wm (4.10.1) precise; urgency=low
+
+  * Bump new version
+
+ -- Javier P.L. <chilicuil@ubuntu.com>  Sun, 29 Mar 2015 18:28:55 -0600
+
 i3-wm (4.9.1) unstable; urgency=low
 
   * debian/patches/01-disable-urgency-hints-if-workspace-is-not-

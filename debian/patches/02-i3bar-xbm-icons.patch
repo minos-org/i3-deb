@@ -26,9 +26,9 @@
  
  typedef struct rect_t rect;
  
-@@ -41,6 +42,8 @@ struct status_block {
-     char *color;
-     uint32_t min_width;
+@@ -46,6 +47,8 @@ struct status_block {
+     char *min_width_str;
+ 
      blockalign_t align;
 +    struct xbm_image *icon;
 +    char *icon_color;
@@ -53,18 +53,18 @@
 +#endif /* __XBM_IMAGE_H__ */
 --- a/i3bar/src/child.c
 +++ b/i3bar/src/child.c
-@@ -141,6 +141,8 @@ static int stdin_start_array(void *conte
-         FREE(first->color);
-         FREE(first->name);
-         FREE(first->instance);
-+        FREE(first->icon_color);
-+        xbm_free (first->icon);
-         TAILQ_REMOVE(&statusline_head, first, blocks);
-         free(first);
-     }
-@@ -187,6 +189,15 @@ static int stdin_string(void *context, c
-     if (strcasecmp(ctx->last_map_key, "color") == 0) {
-         sasprintf(&(ctx->block.color), "%.*s", len, val);
+@@ -74,6 +74,8 @@ static void clear_statusline(struct stat
+             FREE(first->color);
+             FREE(first->name);
+             FREE(first->instance);
++            FREE(first->icon_color);
++            xbm_free (first->icon);
+             FREE(first->min_width_str);
+         }
+ 
+@@ -206,6 +208,15 @@ static int stdin_string(void *context, c
+         ctx->block.is_markup = (len == strlen("pango") && !strncasecmp((const char *)val, "pango", strlen("pango")));
+         return 1;
      }
 +    if (strcasecmp(ctx->last_map_key, "icon") == 0) {
 +        char * s;
@@ -369,16 +369,16 @@
  
  #ifdef XCB_COMPAT
  #include "xcb_compat.h"
-@@ -135,7 +136,7 @@ void refresh_statusline(void) {
+@@ -203,7 +204,7 @@ void refresh_statusline(bool use_short_t
+             block->full_text = i3string_copy(block->short_text);
+         }
  
-     /* Predict the text width of all blocks (in pixels). */
-     TAILQ_FOREACH(block, &statusline_head, blocks) {
 -        if (i3string_get_num_bytes(block->full_text) == 0)
 +        if (i3string_get_num_bytes(block->full_text) == 0 && block->icon == NULL)
              continue;
  
          block->width = predict_text_width(block->full_text);
-@@ -165,6 +166,10 @@ void refresh_statusline(void) {
+@@ -233,6 +234,10 @@ void refresh_statusline(bool use_short_t
              statusline_width += block->sep_block_width;
  
          statusline_width += block->width + block->x_offset + block->x_append;
@@ -389,45 +389,45 @@
      }
  
      /* If the statusline is bigger than our screen we need to make sure that
-@@ -180,8 +185,41 @@ void refresh_statusline(void) {
+@@ -248,8 +253,41 @@ void refresh_statusline(bool use_short_t
      /* Draw the text of each block. */
      uint32_t x = 0;
      TAILQ_FOREACH(block, &statusline_head, blocks) {
 -        if (i3string_get_num_bytes(block->full_text) == 0)
 +        if (i3string_get_num_bytes(block->full_text) == 0 && block->icon == NULL)
              continue;
-+         if (block->icon != NULL) {
-+             xcb_image_t *  img;
++        if (block->icon != NULL) {
++            xcb_image_t *  img;
 +
-+             img = xcb_image_create_native (conn, block->icon->height,
-+                                            block->icon->width,
-+                                            XCB_IMAGE_FORMAT_XY_BITMAP,
-+                                            1, NULL, ~0, NULL);
++            img = xcb_image_create_native (conn, block->icon->height,
++                                           block->icon->width,
++                                           XCB_IMAGE_FORMAT_XY_BITMAP,
++                                           1, NULL, ~0, NULL);
 +
-+             img->data = malloc (img->size);
-+             memset (img->data, 0, img->size);
++            img->data = malloc (img->size);
++            memset (img->data, 0, img->size);
 +
-+             for (int i = 0; i < block->icon->height; i++)
-+                 for (int j = 0; j < block->icon->width; j++) {
-+                     unsigned pos = (img->width /8 + !!(img->width % 8))*i + j/8;
-+                     bool p = !!(block->icon->data[pos] & (1 << (j%8)));
-+                     xcb_image_put_pixel (img, j, i, p);
-+                 }
++            for (int i = 0; i < block->icon->height; i++)
++                for (int j = 0; j < block->icon->width; j++) {
++                    unsigned pos = (img->width /8 + !!(img->width % 8))*i + j/8;
++                    bool p = !!(block->icon->data[pos] & (1 << (j%8)));
++                    xcb_image_put_pixel (img, j, i, p);
++                }
 +
-+             uint32_t mask = XCB_GC_FOREGROUND | XCB_GC_BACKGROUND;
-+             if (block->icon_color) {
-+                 uint32_t values[] = { get_colorpixel(block->icon_color), colors.bar_bg };
-+                 xcb_change_gc(xcb_connection, statusline_ctx, mask, values);
-+             } else {
-+                 uint32_t values[] = { colors.bar_fg, colors.bar_bg };
-+                 xcb_change_gc(xcb_connection, statusline_ctx, mask, values);
-+             }
++            uint32_t mask = XCB_GC_FOREGROUND | XCB_GC_BACKGROUND;
++            if (block->icon_color) {
++                uint32_t values[] = { get_colorpixel(block->icon_color), colors.bar_bg };
++                xcb_change_gc(xcb_connection, statusline_ctx, mask, values);
++            } else {
++                uint32_t values[] = { colors.bar_fg, colors.bar_bg };
++                xcb_change_gc(xcb_connection, statusline_ctx, mask, values);
++            }
 +
-+             xcb_image_put (conn, statusline_pm, statusline_ctx,
-+                            img, x, (font.height - block->icon->height)/2 + 3, 0);
-+             xcb_image_destroy (img);
-+             x += block->icon->width + 5;
-+         }
++            xcb_image_put (conn, statusline_pm, statusline_ctx,
++                           img, x, (font.height - block->icon->height)/2 + 3, 0);
++            xcb_image_destroy (img);
++            x += block->icon->width + 5;
++        }
 +
          uint32_t fg_color;
  
