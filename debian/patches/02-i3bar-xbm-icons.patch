@@ -5,7 +5,7 @@
 ## Last-Update: 2015-02-28
 --- a/common.mk
 +++ b/common.mk
-@@ -80,8 +80,10 @@ ldflags_for_lib = $(shell pkg-config --e
+@@ -83,8 +83,10 @@ ldflags_for_lib = $(shell $(PKG_CONFIG)
  # XCB common stuff
  XCB_CFLAGS  := $(call cflags_for_lib, xcb)
  XCB_CFLAGS  += $(call cflags_for_lib, xcb-event)
@@ -13,7 +13,7 @@
  XCB_LIBS    := $(call ldflags_for_lib, xcb,xcb)
  XCB_LIBS    += $(call ldflags_for_lib, xcb-event,xcb-event)
 +XCB_LIBS    += $(call ldflags_for_lib, xcb-image,xcb-image)
- ifeq ($(shell pkg-config --exists xcb-util 2>/dev/null || echo 1),1)
+ ifeq ($(shell $(PKG_CONFIG) --exists xcb-util 2>/dev/null || echo 1),1)
  XCB_CFLAGS  += $(call cflags_for_lib, xcb-atom)
  XCB_CFLAGS  += $(call cflags_for_lib, xcb-aux)
 --- a/i3bar/include/common.h
@@ -62,7 +62,7 @@
              FREE(first->min_width_str);
          }
  
-@@ -206,6 +208,15 @@ static int stdin_string(void *context, c
+@@ -209,6 +211,15 @@ static int stdin_string(void *context, c
          ctx->block.is_markup = (len == strlen("pango") && !strncasecmp((const char *)val, "pango", strlen("pango")));
          return 1;
      }
@@ -369,7 +369,7 @@
  
  #ifdef XCB_COMPAT
  #include "xcb_compat.h"
-@@ -203,7 +204,7 @@ void refresh_statusline(bool use_short_t
+@@ -206,7 +207,7 @@ void refresh_statusline(bool use_short_t
              block->full_text = i3string_copy(block->short_text);
          }
  
@@ -378,7 +378,7 @@
              continue;
  
          block->width = predict_text_width(block->full_text);
-@@ -233,6 +234,10 @@ void refresh_statusline(bool use_short_t
+@@ -236,6 +237,10 @@ void refresh_statusline(bool use_short_t
              statusline_width += block->sep_block_width;
  
          statusline_width += block->width + block->x_offset + block->x_append;
@@ -389,7 +389,7 @@
      }
  
      /* If the statusline is bigger than our screen we need to make sure that
-@@ -248,8 +253,41 @@ void refresh_statusline(bool use_short_t
+@@ -251,8 +256,41 @@ void refresh_statusline(bool use_short_t
      /* Draw the text of each block. */
      uint32_t x = 0;
      TAILQ_FOREACH(block, &statusline_head, blocks) {
