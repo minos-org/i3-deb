@@ -3,7 +3,7 @@
 ## Bug: https://github.com/ashinkarov/i3-extras
 --- a/src/render.c
 +++ b/src/render.c
-@@ -20,10 +20,7 @@ static bool show_debug_borders = false;
+@@ -25,10 +25,7 @@ static void render_con_dockarea(Con *con
   * Returns the height for the decorations
   */
  int render_deco_height(void) {
