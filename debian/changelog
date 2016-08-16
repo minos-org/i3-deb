@@ -1,3 +1,10 @@
+i3-wm (1:201608161035+git1234567-minos) precise; urgency=low
+
+  * add trusty/xenial packages into lp recipe:
+    https://code.launchpad.net/~minos-archive/+recipe/i3
+
+ -- Javier P.L. <chilicuil@ubuntu.com>  Tue, 16 Aug 2016 10:35:45 -0500
+
 i3-wm (4.10.1) precise; urgency=low
 
   * Bump new version
