@@ -1,8 +1,9 @@
 Source: i3-wm
 Section: x11
 Priority: extra
-Maintainer: Javier Lopez <j@minos.io>
+Maintainer: Javier López <m@javier.io>
 Build-Depends: debhelper (>= 7.0.50~),
+               dh-autoreconf,
                libx11-dev,
                libxcb-util0-dev (>= 0.3.8),
                libxcb-keysyms1-dev,
@@ -10,6 +11,7 @@ Build-Depends: debhelper (>= 7.0.50~),
                libxcb-randr0-dev,
                libxcb-icccm4-dev,
                libxcb-cursor-dev,
+               libxcb-xrm-dev,
                libxcb-xkb-dev,
                libxkbcommon-dev,
                libxkbcommon-x11-dev,
@@ -34,8 +36,8 @@ Recommends: i3lock (>= 2.2), dmenu, i3status (>= 2.3)
 Description: metapackage (i3 window manager, screen locker, menu, statusbar)
  This metapackage installs the i3 window manager (i3-wm), the i3lock screen
  locker, i3status (for system information) and dmenu. This is a minos build
- revision. Please see:
- https://github.com/minos-org/i3-deb/debian/patches for detailed information.
+ revision. Please see: https://github.com/minos-org/i3-deb/debian/patches
+ for detailed information.
 
 Package: i3-wm
 Architecture: any

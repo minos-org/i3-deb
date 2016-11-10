@@ -1,3 +1,9 @@
+i3-wm (1:201611091304+git1234567-minos) precise; urgency=low
+
+  * New upstream release, 4.13
+
+ -- Javier P.L. <chilicuil@ubuntu.com>  Tue, 9 Nov 2016 10:35:45 -0500
+
 i3-wm (1:201608161035+git1234567-minos) precise; urgency=low
 
   * add trusty/xenial packages into lp recipe:

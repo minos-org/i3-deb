@@ -1,9 +1,11 @@
 ## Description: Removes extra spaces around the font in window titles
 ## Origin/Author: 0x2493
 ## Bug: https://github.com/ashinkarov/i3-extras
---- a/src/render.c
-+++ b/src/render.c
-@@ -25,10 +25,7 @@ static void render_con_dockarea(Con *con
+Index: i3/src/render.c
+===================================================================
+--- i3.orig/src/render.c
++++ i3/src/render.c
+@@ -23,10 +23,7 @@ static void render_con_dockarea(Con *con
   * Returns the height for the decorations
   */
  int render_deco_height(void) {
