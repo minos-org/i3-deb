@@ -30,6 +30,7 @@ People who contributed:
       https://github.com/ashinkarov/i3-extras/pull/29
 ---
  configure.ac              |   2 +
+ Makefile.am               |   2 +
  i3bar/include/common.h    |   4 +
  i3bar/include/xbm_image.h |  14 +++
  i3bar/src/child.c         |  11 ++
@@ -483,11 +484,32 @@ Index: i3/configure.ac
 ===================================================================
 --- i3.orig/configure.ac
 +++ i3/configure.ac
-@@ -87,6 +87,7 @@ PKG_CHECK_MODULES([LIBSN], [libstartup-n
- PKG_CHECK_MODULES([XCB], [xcb xcb-xkb xcb-xinerama xcb-randr])
+@@ -84,7 +84,7 @@ AX_PTHREAD
+ dnl Each prefix corresponds to a source tarball which users might have
+ dnl downloaded in a newer version and would like to overwrite.
+ PKG_CHECK_MODULES([LIBSN], [libstartup-notification-1.0])
+-PKG_CHECK_MODULES([XCB], [xcb xcb-xkb xcb-xinerama xcb-randr])
++PKG_CHECK_MODULES([XCB], [xcb xcb-image xcb-xkb xcb-xinerama xcb-randr])
  PKG_CHECK_MODULES([XCB_UTIL], [xcb-event xcb-util])
  PKG_CHECK_MODULES([XCB_UTIL_CURSOR], [xcb-cursor])
-+PKG_CHECK_MODULES([XCB_UTIL_IMAGE], [xcb-image])
  PKG_CHECK_MODULES([XCB_UTIL_KEYSYMS], [xcb-keysyms])
- PKG_CHECK_MODULES([XCB_UTIL_WM], [xcb-icccm])
- PKG_CHECK_MODULES([XCB_UTIL_XRM], [xcb-xrm])
+Index: i3/Makefile.am
+===================================================================
+--- i3.orig/Makefile.am
++++ i3/Makefile.am
+@@ -364,6 +364,7 @@ i3bar_i3bar_LDADD = \
+ 	$(YAJL_LIBS)
+ 
+ i3bar_i3bar_SOURCES = \
++	i3bar/include/xbm_image.h \
+ 	i3bar/include/child.h \
+ 	i3bar/include/common.h \
+ 	i3bar/include/configuration.h \
+@@ -376,6 +377,7 @@ i3bar_i3bar_SOURCES = \
+ 	i3bar/include/workspaces.h \
+ 	i3bar/include/xcb_atoms.def \
+ 	i3bar/include/xcb.h \
++	i3bar/src/xbm_image.c \
+ 	i3bar/src/child.c \
+ 	i3bar/src/config.c \
+ 	i3bar/src/ipc.c \

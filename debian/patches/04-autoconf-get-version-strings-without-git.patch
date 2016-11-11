@@ -1,0 +1,25 @@
+## Description: Avoid using git to set version strings, use instead VERSION/I3_VERSION files
+## Origin/Author: Javier López
+Index: i3/configure.ac
+===================================================================
+--- i3.orig/configure.ac
++++ i3/configure.ac
+@@ -25,14 +25,14 @@ AX_EXTEND_SRCDIR
+ 
+ AS_IF([test -d ${srcdir}/.git],
+       [
+-        VERSION="$(git describe --tags --abbrev=0)"
+-        I3_VERSION="$(git describe --tags --always) ($(git log --pretty=format:%cd --date=short -n1), branch \\\"$(git describe --tags --always --all | sed s:heads/::)\\\")"
++        VERSION="$(cat ../VERSION)"
++        I3_VERSION="$(cat ../I3_VERSION)"
+         # Mirrors what libi3/is_debug_build.c does:
+         is_release=$(test $(echo "${I3_VERSION}" | cut -d '(' -f 1 | wc -m) -lt 10 && echo yes || echo no)
+       ],
+       [
+-        VERSION="$(cut -d '-' -f 1 ${srcdir}/I3_VERSION | cut -d ' ' -f 1)"
+-        I3_VERSION="$(sed -e 's/@<:@\"?\\@:>@/\\&/g' ${srcdir}/I3_VERSION)"
++        VERSION="(cat ../VERSION)"
++        I3_VERSION="$(cat ../I3_VERSION)"
+         is_release="$(grep -q non-git ${srcdir}/I3_VERSION && echo no || echo yes)"
+       ])
+ AC_SUBST([I3_VERSION], [$I3_VERSION])

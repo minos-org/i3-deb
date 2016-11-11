@@ -1,3 +1,4 @@
 01-disable-urgency-hints-if-workspace-is-not-visible.patch
 02-i3bar-xbm-icons.patch
 03-tiny-titles.patch
+04-autoconf-get-version-strings-without-git.patch
