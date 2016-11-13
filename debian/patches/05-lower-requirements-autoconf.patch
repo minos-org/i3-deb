@@ -1,0 +1,31 @@
+Index: i3/configure.ac
+===================================================================
+--- i3.orig/configure.ac
++++ i3/configure.ac
+@@ -1,7 +1,7 @@
+ #                                               -*- Autoconf -*-
+ # Run autoreconf -fi to generate a configure script from this file.
+ 
+-AC_PREREQ([2.69])
++AC_PREREQ([2.68])
+ AC_INIT([i3], [4.13], [https://github.com/i3/i3/issues])
+ # For AX_EXTEND_SRCDIR
+ AX_ENABLE_BUILDDIR
+@@ -59,7 +59,7 @@ AC_DEFINE_UNQUOTED(SYSCONFDIR, "`eval ec
+ AC_USE_SYSTEM_EXTENSIONS
+ 
+ # Checks for typedefs, structures, and compiler characteristics.
+-AC_CHECK_HEADER_STDBOOL
++#AC_CHECK_HEADER_STDBOOL
+ dnl The error message should include the specific type which could not be
+ dnl found, but I do not see a way to achieve that.
+ AC_CHECK_TYPES([mode_t, off_t, pid_t, size_t, ssize_t], , [AC_MSG_FAILURE([cannot find required type])])
+@@ -93,7 +93,7 @@ PKG_CHECK_MODULES([XCB_UTIL_XRM], [xcb-x
+ PKG_CHECK_MODULES([XKBCOMMON], [xkbcommon xkbcommon-x11])
+ PKG_CHECK_MODULES([YAJL], [yajl])
+ PKG_CHECK_MODULES([LIBPCRE], [libpcre >= 8.10])
+-PKG_CHECK_MODULES([PANGOCAIRO], [cairo >= 1.14.4 pangocairo])
++PKG_CHECK_MODULES([PANGOCAIRO], [cairo >= 1.10.2 pangocairo])
+ 
+ # Checks for programs.
+ AC_PROG_AWK

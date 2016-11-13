@@ -2,3 +2,5 @@
 02-i3bar-xbm-icons.patch
 03-tiny-titles.patch
 04-autoconf-get-version-strings-without-git.patch
+05-lower-requirements-autoconf.patch
+06-disable-address-sanitazer.patch

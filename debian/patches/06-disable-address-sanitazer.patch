@@ -1,0 +1,19 @@
+Index: i3/configure.ac
+===================================================================
+--- i3.orig/configure.ac
++++ i3/configure.ac
+@@ -28,12 +28,12 @@ AS_IF([test -d ${srcdir}/.git],
+         VERSION="$(cat ../VERSION)"
+         I3_VERSION="$(cat ../I3_VERSION)"
+         # Mirrors what libi3/is_debug_build.c does:
+-        is_release=$(test $(echo "${I3_VERSION}" | cut -d '(' -f 1 | wc -m) -lt 10 && echo yes || echo no)
++        is_release="yes"
+       ],
+       [
+         VERSION="(cat ../VERSION)"
+         I3_VERSION="$(cat ../I3_VERSION)"
+-        is_release="$(grep -q non-git ${srcdir}/I3_VERSION && echo no || echo yes)"
++        is_release="yes"
+       ])
+ AC_SUBST([I3_VERSION], [$I3_VERSION])
+ MAJOR_VERSION="$(echo ${VERSION} | cut -d '.' -f 1)"
