@@ -3,13 +3,13 @@ i3-wm (1:201608161035+git1234567-minos) precise; urgency=low
   * add trusty/xenial packages into lp recipe:
     https://code.launchpad.net/~minos-archive/+recipe/i3
 
- -- Javier P.L. <chilicuil@ubuntu.com>  Tue, 16 Aug 2016 10:35:45 -0500
+ -- Javier López <m@javier.io>  Tue, 16 Aug 2016 10:35:45 -0500
 
 i3-wm (4.10.1) precise; urgency=low
 
   * Bump new version
 
- -- Javier P.L. <chilicuil@ubuntu.com>  Sun, 29 Mar 2015 18:28:55 -0600
+ -- Javier López <m@javier.io>  Sun, 29 Mar 2015 18:28:55 -0600
 
 i3-wm (4.9.1) unstable; urgency=low
 
@@ -20,7 +20,7 @@ i3-wm (4.9.1) unstable; urgency=low
   * debian/patches/03-tiny-titles.patch: Removes extra spaces around the font
     in window titles
 
- -- Javier P.L. <chilicuil@ubuntu.com>  Thu, 28 Feb 2015 23:11:48 +0100
+ -- Javier López <m@javier.io>  Thu, 28 Feb 2015 23:11:48 +0100
 
 i3-wm (4.8.34) unstable; urgency=low
 
@@ -31,7 +31,7 @@ i3-wm (4.8.34) unstable; urgency=low
   * debian/patches/05-tiny-titles.patch: Removes extra spaces around the font
     in window titles
 
- -- Javier P.L. <chilicuil@ubuntu.com>  Thu, 05 Jan 2015 23:11:48 +0100
+ -- Javier López <m@javier.io>  Thu, 05 Jan 2015 23:11:48 +0100
 
 i3-wm (4.7.2-1) unstable; urgency=low
 
